@@ -1,0 +1,21 @@
+[submodule "ARTD"]
+	path = ARTD
+	url = git@github.com:crystalcheong/ARTD.git
+[submodule "axo-gamestore"]
+	path = axo-gamestore
+	url = git@github.com:crystalcheong/axo-gamestore.git
+[submodule "OZONE"]
+	path = OZONE
+	url = git@github.com:crystalcheong/OZONE.git
+[submodule "DollarSense"]
+	path = DollarSense
+	url = git@github.com:crystalcheong/DollarSense.git
+[submodule "POSB-ATM"]
+	path = POSB-ATM
+	url = git@github.com:crystalcheong/POSB-ATM.git
+[submodule "BestBuy"]
+	path = BestBuy
+	url = git@github.com:crystalcheong/BestBuy.git
+[submodule "MoteShop"]
+	path = MoteShop
+	url = git@github.com:crystalcheong/MoteShop.git
