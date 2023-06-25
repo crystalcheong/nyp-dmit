@@ -1,0 +1,43 @@
+name: Update all submodules
+# on: [workflow_dispatch, repository_dispatch]
+on:
+   workflow_dispatch:
+   repository_dispatch:
+   schedule:
+    # job would be run every midnight on 1st day of the every month
+     - cron: "0 0 1 * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout Submodules
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.ACTIONS_PAT }}
+        submodules: recursive
+
+    - name: Submodule update
+      run: |
+        git submodule init
+        git submodule update --remote --merge
+
+    - name: Check if there are any changes
+      id: verify_diff
+      run: |
+        git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+      
+    - name: Commit
+      if: steps.verify_diff.outputs.changed == 'true'
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add .
+        git commit -m "chore(submodule): update" -a
+
+    - name: Push
+      if: steps.verify_diff.outputs.changed == 'true'
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
